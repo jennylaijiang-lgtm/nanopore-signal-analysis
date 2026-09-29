@@ -1,0 +1,146 @@
+{
+  "description": "SHA-256 of the original selected cowler files before portfolio packaging changes. See CONTRIBUTIONS.md for attribution and modifications.",
+  "files": [
+    {
+      "path": "cowler/__init__.py",
+      "source_sha256": "66680107b4884260771632ac1e86f7e08d8785cf8b8a8911147879e3c59222b1"
+    },
+    {
+      "path": "cowler/align/__init__.py",
+      "source_sha256": "2d2bc1208b99c36ad0ae2e354ffa8b685def7c2535b0b3b8c1477a0a04274f8e"
+    },
+    {
+      "path": "cowler/align/cost.py",
+      "source_sha256": "c831262e7710f1b7d8b1263bb4149cf926dcb4cd20a2ad0a44fd4f956bd20d20"
+    },
+    {
+      "path": "cowler/align/dp.py",
+      "source_sha256": "ec0ef63c782c053dde90944dcd3ced742bd06dfe3b4f9a2068883331d8cdb0ad"
+    },
+    {
+      "path": "cowler/align/dtw.py",
+      "source_sha256": "5fc2ab433cefbe3a4cd2510ebe581f0fc5214dbc5c9f9619946ede7f2350f04b"
+    },
+    {
+      "path": "cowler/align/hybrid_segment.py",
+      "source_sha256": "278f5bf8877bc4d8ad7808a50459edc06ac23404aeca21ae66e320642e48492a"
+    },
+    {
+      "path": "cowler/align/segment.py",
+      "source_sha256": "03f0edb735f06b754d9d1a1c25f1ff81fcdf12c93e937d75378832f9ddc98053"
+    },
+    {
+      "path": "cowler/align/transition.py",
+      "source_sha256": "4db5943339d6b212e08a2d2951341e0a76934001e9efadd745dc27a940266339"
+    },
+    {
+      "path": "cowler/consensus/__init__.py",
+      "source_sha256": "466fcca793a64a921b638a8f403cf632a15ea3506d321cd761b806b2f79571b0"
+    },
+    {
+      "path": "cowler/consensus/_signal.py",
+      "source_sha256": "06f4329c3bbab574635f9a2dd42048a964a405a5a3d4ffb84043ddad16e1c10c"
+    },
+    {
+      "path": "cowler/consensus/cluster.py",
+      "source_sha256": "259af41e3e78ce63d08971eeab2ce5c734aaf6992b56c973d05667664d083a91"
+    },
+    {
+      "path": "cowler/consensus/dba.py",
+      "source_sha256": "b823e20df959261924a979d3b51eef62052210149a76c1dee25ba2b006350aa5"
+    },
+    {
+      "path": "cowler/consensus/hmm.py",
+      "source_sha256": "537ac392acf95ba1d50adeabbf4dbc9fe60bee53e0450eb97f6b00c5ce89ba9f"
+    },
+    {
+      "path": "cowler/consensus/length_normalize.py",
+      "source_sha256": "b746d148021e5ea053a0e0cf22609b47b1b11653cda531f8aedf0fe0523768e6"
+    },
+    {
+      "path": "cowler/eval/__init__.py",
+      "source_sha256": "30d8016f1e4546414f16b73070bf859dfcd6dd306dc0dcbb31b18e80b14639ec"
+    },
+    {
+      "path": "cowler/eval/peptide_consensus.py",
+      "source_sha256": "d6fb29e01ed906ae373c465dc7054d570bd40ddbd8ae2f32d8db45b8880accb1"
+    },
+    {
+      "path": "cowler/io/__init__.py",
+      "source_sha256": "7644566dba542e17fdf6a0dbbf6a9549031561384a4cbc201afef13030990c8d"
+    },
+    {
+      "path": "cowler/io/lut.py",
+      "source_sha256": "c3e473e96162a4abc2a667e7a89b27374145d6f83df60f5717d5bd72b6be1b6b"
+    },
+    {
+      "path": "cowler/io/normalize.py",
+      "source_sha256": "43bc8722d683d1d123471613ae18aa556e3a0460c442968129c42de42274ea4d"
+    },
+    {
+      "path": "scripts/evaluate_boundary_constructs.py",
+      "source_sha256": "7df5c206ee6bf5134aae8f3fbf1db781433c6b64336ca842950973ab32b5ad3c"
+    },
+    {
+      "path": "scripts/evaluate_js445_segmentation.py",
+      "source_sha256": "3ae53ee9803c594f04b550ca50ab4689d6ed2377f1dccf22b535301241fe97da"
+    },
+    {
+      "path": "scripts/evaluate_medoid_robustness.py",
+      "source_sha256": "2c0a4231e9f10d1632b15a720a76621f9d822e988a853cb03ce555b45aa066e7"
+    },
+    {
+      "path": "scripts/evaluate_medoid_robustness_stage2.py",
+      "source_sha256": "0af845301fbebc3d498a98e3626256bc1a44c08a5ded20b72983f4a536d0f7e4"
+    },
+    {
+      "path": "scripts/evaluate_medoid_robustness_stage2_followup.py",
+      "source_sha256": "3998d556bf6f92e6fe5bbe8b5766f69bc2186a4ae562b4c14c38ff0128bc2cb8"
+    },
+    {
+      "path": "scripts/evaluate_medoid_robustness_stage3.py",
+      "source_sha256": "65fa28e796bd3fa88d47aaa50b6e4bf1046d2e8214d5dec9200248ff52acb783"
+    },
+    {
+      "path": "scripts/evaluate_medoid_robustness_stage4.py",
+      "source_sha256": "05329620b5ee3b8fa09f82cbc0d5a821712f90af0982e49b9717d61e3a08ef08"
+    },
+    {
+      "path": "scripts/evaluate_psk_dba_consensus.py",
+      "source_sha256": "f7eeba1b176bef3be2e2fcb0974e3c7e8c7834da50f378227366a5f840e7bada"
+    },
+    {
+      "path": "scripts/evaluate_psk_length_normalized_consensus.py",
+      "source_sha256": "520e2151841b800d3d5b580c2a65e0c11a1856e64a41417dcf4352622832e084"
+    },
+    {
+      "path": "scripts/evaluate_psk_preprocessing_ablation.py",
+      "source_sha256": "aafa9a8064eea7f72971ddc3b7c4b0b87ef4dd813398bf6b7850ff8b11d411f3"
+    },
+    {
+      "path": "cowler/tests/test_dtw.py",
+      "source_sha256": "cdb6e7c5cc8465764b9fd72ca96345461fcba52b046f94048900019b8aacee6e"
+    },
+    {
+      "path": "cowler/tests/test_consensus_length_normalize.py",
+      "source_sha256": "b31ed23854142c0b2671589251a42e226828a0f58f9eaa844055750dd8dc5178"
+    },
+    {
+      "path": "cowler/tests/test_peptide_signal_consensus.py",
+      "source_sha256": "d5350f836954e998c03fc2752d490cf843d427a8d9d153710546fd122bd1a847"
+    },
+    {
+      "path": "cowler/tests/test_boundary_construct_evaluation.py",
+      "source_sha256": "265f4924aa1a21f4ae0096f5f4ba21ac06f0c83b1f7ae5f5d4f3651060927037"
+    },
+    {
+      "path": "cowler/tests/test_medoid_robustness_stage2.py",
+      "source_sha256": "603062e7a1020c7584e0dbfe36974281abc53f8b76dd150158f58cafc5c6a5d6"
+    },
+    {
+      "path": "cowler/tests/test_psk_preprocessing_ablation.py",
+      "source_sha256": "63ccaf2ef37c9a055b924845ca828e98cd54ebb23547e4bc6ab394bbe151b764",
+      "note": "Portfolio retains only the event fixture and six DBA ablation tests; unrelated imports and tests omitted."
+    }
+  ]
+}

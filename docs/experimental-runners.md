@@ -85,3 +85,13 @@ This portfolio includes all staged analysis code, but it does not recreate every
 The standalone example demonstrates the public APIs with generated signals. The included tests exercise algorithms and bookkeeping using synthetic fixtures. Experimental runners can be imported and their help inspected without private inputs; the original full experiments cannot be validated here without those inputs.
 
 Original source docstrings may refer to design documents, notebooks or historical outputs in the full research project. Those internal materials are not bundled; this guide documents the setup needed for the selected portfolio subset.
+
+## Tests and type checks
+
+```bash
+python -m pip install -e '.[demo,research,dev]'
+python -m pytest
+python -m pyright
+```
+
+The tests exercise algorithms and bookkeeping with generated fixtures. Pyright covers the example and modified calibration-loading modules, not a full audit of inherited research code. GitHub Actions runs these checks and the synthetic workflow on Python 3.12 without laboratory data.

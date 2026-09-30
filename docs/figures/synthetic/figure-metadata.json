@@ -1,0 +1,23 @@
+{
+  "purpose": "GitHub portfolio illustration, not experimental validation",
+  "seed": 42,
+  "n_traces": 16,
+  "excluded_traces": 0,
+  "transformations": [
+    "endpoint-inclusive linear mean/variance interpolation",
+    "inverse-variance weighted DBA; see summary.json for convergence"
+  ],
+  "uncertainty": "No uncertainty band plotted; profile std in consensus.csv is not a CI",
+  "source_data": [
+    "native_traces.csv",
+    "resampled_traces.csv",
+    "consensus.csv"
+  ],
+  "matplotlib": "3.11.2",
+  "numpy": "2.5.3",
+  "size_pixels": [
+    1920,
+    672
+  ],
+  "dpi": 160
+}

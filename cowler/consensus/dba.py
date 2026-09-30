@@ -1,83 +1,36 @@
-"""DTW barycenter averaging -- build a consensus signal profile from K reads.
+"""Estimate a consensus signal with uncertainty-weighted DTW barycentre averaging.
 
-The reference-free consensus path. `posterior.py` combines reads on a KNOWN
-peptide's profile axis (the reference IS the alignment); DBA is what to do when no
-such profile exists -- it CONSTRUCTS the shared axis from the reads themselves.
-That is the peptide situation by default: no residue-kmer LUT, so no expected
-profile to align to.
-
-Relation to the other two fallbacks: DBA sits between `posterior.py` (needs a
-reference) and `poa.py` (graph-structured, handles indels/variants). DBA assumes a
-single linear consensus axis with only warping between reads -- cheaper and far
-simpler than POA, and sufficient when the reads are repeat observations of the same
-molecule differing by stepping rate, not by content.
+Reads are repeated observations of the same signal with different stepping rates.
+The output is a shared signal profile, not an amino-acid sequence.
 
 Algorithm
 ---------
-    1. init: pairwise DTW (`align.dtw.dtw_pairwise`) over the K reads; barycenter B
-       = the MEDOID read (argmin row-sum of the distance matrix). Medoid init, not
-       a random read: DBA is a local optimizer (Expectation-Maximization-like, no
-       global guarantee) and the medoid is the cheapest defensible starting point.
-    2. iterate to convergence (typically 5-10 rounds):
-         assign : DTW-align every read r to B -> warping path_r
-         update : for each barycenter position j, gather all read steps mapped to j
-                  and replace B[j] with their INVERSE-VARIANCE weighted mean
-                  (weight 1/std**2 -- reuses the same per-step uncertainty the HMM
-                  emission uses; a plain mean throws it away).
-       Stop when max |B_new - B_old| < tol, or on the iteration cap.
-    3. output: consensus profile + per-position spread + per-position depth.
+1. Initialise the profile from a medoid: the read with the smallest sum of
+   pairwise DTW distances, unless an explicit medoid index is supplied.
+2. Align each read to the current profile using squared-error DTW costs weighted
+   by the inverse observation variance.
+3. At each profile position, replace the mean with the inverse-variance weighted
+   mean of aligned observations. Repeat until the maximum absolute mean change
+   is below ``tol`` or ``max_iter`` is reached.
 
-Cost must be squared euclidean
-------------------------------
-Use `align.cost.cost_l2` INSIDE the loop, not `cost_gaussian`. DBA's update step
-(replace each position by the mean of its assigned observations) is a descent step
-only because the arithmetic mean is the Frechet mean under squared euclidean. Under
-the Gaussian/emission cost that identity does not hold, the update stops being a
-descent step, and the iteration can oscillate instead of converge. The
-inverse-variance weighting above is a weighted mean -- still the Frechet mean of
-the same metric under those weights, so it is safe; changing the METRIC is not.
-(`cost_gaussian` is still the right choice for the step-1 pairwise matrix, which is
-a distance computation, not part of the averaging loop.)
+Squared-error alignment and the weighted-mean update use the same observation
+precisions. Gaussian-DTW distances select the initial medoid; they are not the
+cost used in the iterative averaging step. Initialisation can affect the result,
+and reaching the iteration limit does not establish convergence.
 
-Channels stay separate
-----------------------
-Warp is computed on the LEVEL channel (step mean) only. `dwell` is then carried
-through the same path and averaged into its own consensus track. Concatenating
-level and dwell into one cost mixes units and lets stepping-rate variation -- the
-exact thing DTW is supposed to absorb -- distort the level alignment. Per-step
-`std` likewise rides along as a weight, never as a cost dimension.
+Signal channels and support
+---------------------------
+Alignment uses signal levels and their uncertainty. Dwell times follow the same
+warping paths and are averaged separately. The returned ``std`` combines weighted
+between-observation spread with mean-estimation uncertainty; it is not a calibrated
+confidence interval. ``depth`` counts distinct reads covering each position, and
+``supported`` marks positions meeting ``min_depth``.
 
-Partial overlap
----------------
-The staged default is CLOSED DTW (`open_begin=False`, `open_end=False`) while
-testing fragments whose DNA boundary should make both ends comparable. Every read
-therefore consumes the full medoid axis. Once partial-span behavior is being tested,
-callers can explicitly enable either open end. Open ends produce unequal depth at
-the barycenter edges, which is why depth is always tracked and emitted.
-
-What it yields beyond the profile
----------------------------------
-- **Per-position confidence** = weighted spread of the assigned observations,
-  Component 6's per-position confidence deliverable, straight out of the update step.
-- **Steps per residue**, measurable from the converged barycenter's level-transition
-  spacing. Component 6 explicitly refuses to inherit DNA's "two steps per
-  nucleotide"; this is the measurement that replaces the assumption.
-
-Public API
-----------
-    dba(reads, *, medoid_index=None, max_iter=10, tol=..., min_depth=..., **dtw_kw)
-        -> Barycenter(mean, std, dwell, depth, n_iter, converged, delta)
-        reads : per-read step arrays (mean, std, dwell), pre-normalized to a common
-                scale, or pass normalize=True.
-
-Validation order (do NOT go straight to peptide)
-------------------------------------------------
-Validate on DNA first, where ground truth exists: DBA a group of reads of one known
-molecule, compare the converged barycenter against that molecule's LUT profile from
-`io`. If the barycenter does not reproduce a known profile, nothing it produces on
-peptide data can be trusted. Only then port to peptide chemistry. Same milestone
-shape as the rest of Component 6: consensus accuracy must rise with depth K and the
-per-position confidence must track true error.
+Closed-end DTW is the default for fragments with comparable endpoints. Callers
+may explicitly enable open ends for partial overlap, which can reduce edge depth.
+Reads must share a current scale, or callers may use ``normalize=True`` for
+per-read robust normalisation. The output axis follows the initial medoid; its
+positions should not be interpreted as residue identities or steps per residue.
 """
 
 from __future__ import annotations

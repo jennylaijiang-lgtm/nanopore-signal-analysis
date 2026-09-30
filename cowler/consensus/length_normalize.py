@@ -1,11 +1,9 @@
 """Length-normalize step-level signal traces before consensus fitting.
 
-The peptide-consensus engines normally consume native segmented steps and retain
-the selected medoid's variable-length axis.  This module provides an explicitly
-derived representation, also the primary PSK DBA runner default: each retained trace is
-linearly interpolated onto one endpoint-inclusive relative-position grid before
-DBA.  Interpolated positions are not physical enzyme steps and are correlated
-within a source trace.
+Each trace is linearly interpolated onto a shared, endpoint-inclusive
+relative-position grid before consensus fitting. The target length may be fixed
+or selected from training-trace lengths. Interpolated positions are correlated
+within a source trace and are not physical enzyme steps.
 
 Only signal mean and uncertainty are transformed.  Dwell is deliberately absent:
 ordinary interpolation would not conserve total event duration.  Current values

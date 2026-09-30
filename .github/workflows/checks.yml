@@ -1,0 +1,28 @@
+name: Checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-code:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -e '.[demo,research,dev]'
+      - name: Test
+        run: .venv/bin/python -m pytest -q
+      - name: Check types
+        run: .venv/bin/python -m pyright
+      - name: Run synthetic workflow
+        env:
+          MPLBACKEND: Agg
+        run: .venv/bin/python -m examples.synthetic_consensus

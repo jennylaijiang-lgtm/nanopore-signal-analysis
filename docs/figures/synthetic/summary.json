@@ -1,0 +1,31 @@
+{
+  "data": "synthetic demonstration; arbitrary signal units",
+  "seed": 42,
+  "n_reads": 16,
+  "source_lengths": [
+    50,
+    73,
+    54,
+    58,
+    59,
+    65,
+    50,
+    78,
+    75,
+    49,
+    60,
+    74,
+    56,
+    78,
+    79,
+    58
+  ],
+  "target_length": 64,
+  "medoid_index": 0,
+  "iterations": 8,
+  "converged": true,
+  "medoid_rmse": 0.02538295553145976,
+  "consensus_rmse": 0.02526325901406634,
+  "minimum_read_depth": 16,
+  "all_positions_supported": true
+}
